@@ -11,6 +11,16 @@ for (let button of buttons) {
 
 
 
+
+function chooseButton(color){
+    document.getElementById(color).classList.toggle("opacity-0")
+
+    setTimeout(function(){
+        document.getElementById(color).classList.remove("opacity-0");
+    }, 200)
+
+}
+
 function makeSound(color){
     
     switch (color) {
