@@ -9,6 +9,8 @@ for (let button of buttons) {
     
 }
 
+
+
 function makeSound(color){
     
     switch (color) {
@@ -35,4 +37,15 @@ function makeSound(color){
         default:
             break;
     }
+}
+
+
+function randomColor(){
+    const colors = ["green", "red", "yellow", "blue"]
+
+    let randomIndex = Math.floor(Math.random() * 4)
+
+    const color = colors[randomIndex]
+
+    return color
 }
