@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn{
+    @apply size-36 rounded-[20%] border-8 border-black sm:size-56 sm:border-[15px] lg:size-72 active:bg-zinc-500 active:shadow-white active:shadow
+}
