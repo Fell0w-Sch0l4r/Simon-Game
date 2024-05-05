@@ -23,7 +23,7 @@ function game() {
     colors.push(randomColor());
 
     console.log(colors);
-    chooseButton(colors.at(-1));
+    animateButton(colors.at(-1));
 
     for (let button of buttons) {
         button.addEventListener("click", function () {
@@ -50,7 +50,7 @@ function game() {
                     increaseLevel();
 
                     colors.push(randomColor());
-                    chooseButton(colors.at(-1));
+                    animateButton(colors.at(-1));
                     console.log(colors);
                 }
             } else {
@@ -59,7 +59,7 @@ function game() {
                 colors.length = 0;
 
                 colors.push(randomColor());
-                chooseButton(colors.at(-1));
+                animateButton(colors.at(-1));
                 console.log(colors);
 
                 redScreen();
@@ -69,7 +69,7 @@ function game() {
     }
 }
 
-function chooseButton(color) {
+function animateButton(color) {
     document.getElementById(color).classList.toggle("opacity-0");
 
     setTimeout(function () {
