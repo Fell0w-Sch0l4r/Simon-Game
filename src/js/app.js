@@ -33,14 +33,8 @@ function game() {
                 typedColors.push(buttonColor);
                 console.log(typedColors);
 
-                let result = true;
+                let result = checkColorsMatch()
 
-                for (let i = 0; i < typedColors.length; i++) {
-                    if (colors[i] !== typedColors[i]) {
-                        result = false;
-                        break;
-                    }
-                }
 
                 if (result) {
                     if (colors.length === typedColors.length) {
@@ -60,6 +54,17 @@ function game() {
             }
         });
     }
+}
+
+
+function checkColorsMatch(){
+    for (let i = 0; i < typedColors.length; i++) {
+        if (colors[i] !== typedColors[i]) {
+            return false
+        }
+    }
+
+    return true
 }
 
 function animateButton(color) {
