@@ -30,32 +30,37 @@ function game() {
             if (!gameOver) {
                 let buttonColor = button.getAttribute("id");
 
-                typedColors.push(buttonColor);
-                console.log(typedColors);
+                handleButtonClick(buttonColor)
 
-                let result = checkColorsMatch()
-
-
-                if (result) {
-                    if (colors.length === typedColors.length) {
-                        console.log(result);
-
-                        resetPlayerInput();
-
-                        increaseLevel();
-
-                        initializeNextLevel()
-                    }
-                } else {
-                    console.log(result);
-
-                    handleGameOver();
-                }
+                
             }
         });
     }
 }
 
+function handleButtonClick(color){
+
+    addTypedColor(color)
+    console.log(typedColors);
+
+    let result = checkColorsMatch();
+
+    if (result) {
+        if (colors.length === typedColors.length) {
+            console.log(result);
+
+            resetPlayerInput();
+
+            increaseLevel();
+
+            initializeNextLevel();
+        }
+    } else {
+        console.log(result);
+
+        handleGameOver();
+    }
+}
 
 function checkColorsMatch(){
     for (let i = 0; i < typedColors.length; i++) {
@@ -217,4 +222,8 @@ function playGameOverSound(){
     let audio = new Audio("src/assets/sounds/wrong.mp3");
     audio.play();
         
+}
+
+function addTypedColor(color) {
+    typedColors.push(color);
 }
