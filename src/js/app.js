@@ -1,6 +1,9 @@
 const colors = [];
 const typedColors = [];
 let level = 1;
+let gameOver = false;
+
+addButtonsSound()
 
 document.addEventListener("keydown", function (event) {
     console.log(event.key);
@@ -11,59 +14,49 @@ document.addEventListener("keydown", function (event) {
     }
 });
 
+document.addEventListener("keydown", function () {
+    restartGame();
+});
+
+
 function game() {
     const buttons = document.querySelectorAll(".btn");
 
-    for (let button of buttons) {
-        button.addEventListener("click", function () {
-            makeSound(button.getAttribute("id"));
-        });
-    }
-
-    colors.push(randomColor());
-
-    console.log(colors);
-    animateButton(colors.at(-1));
+    initializeNextLevel()
 
     for (let button of buttons) {
         button.addEventListener("click", function () {
 
-            
-            let buttonColor = button.getAttribute("id");
-            typedColors.push(buttonColor);
-            console.log(typedColors);
+            if (!gameOver) {
+                let buttonColor = button.getAttribute("id");
 
-            let result = true;
+                typedColors.push(buttonColor);
+                console.log(typedColors);
 
-            for (let i = 0; i < typedColors.length; i++) {
-                if (colors[i] !== typedColors[i]) {
-                    result = false;
-                    break;
+                let result = true;
+
+                for (let i = 0; i < typedColors.length; i++) {
+                    if (colors[i] !== typedColors[i]) {
+                        result = false;
+                        break;
+                    }
                 }
-            }
 
-            if (result) {
-                if (colors.length === typedColors.length) {
+                if (result) {
+                    if (colors.length === typedColors.length) {
+                        console.log(result);
+
+                        resetPlayerInput();
+
+                        increaseLevel();
+
+                        initializeNextLevel()
+                    }
+                } else {
                     console.log(result);
-                    typedColors.length = 0;
 
-                    increaseLevel();
-
-                    colors.push(randomColor());
-                    animateButton(colors.at(-1));
-                    console.log(colors);
+                    handleGameOver();
                 }
-            } else {
-                console.log(result);
-                typedColors.length = 0;
-                colors.length = 0;
-
-                colors.push(randomColor());
-                animateButton(colors.at(-1));
-                console.log(colors);
-
-                redScreen();
-                restartLevel();
             }
         });
     }
@@ -140,17 +133,83 @@ function redScreen() {
     }, 200);
 }
 
+function addNewColor() {
+    colors.push(randomColor());
+}
 
-function restartGame(){
-    redScreen()
-    
-    document.querySelector("h1").textContent = "Game Over, Press Any Key to Restart";
+function getLastColor(colors) {
+    return colors.at(-1);
+}
 
-    document.addEventListener.apply("keydown", function(){
-        restartLevel()
+function handleGameOver() {
+    redScreen();
 
+    playGameOverSound()
+
+    displayGameOverMessage()
+
+    gameOverState(true)
+
+    resetGameState();
+}
+
+function restartGame() {
+    if (!gameOver) return;
+
+    restartLevel();
+
+    nextLevel()
+
+    gameOverState(false)
+}
+
+function nextLevel() {
+    addNewColor();
+    animateButton(getLastColor(colors));
+    makeSound(getLastColor(colors));
+    console.log(colors); // This line can be removed or commented out for the final game
+}
+
+function resetPlayerInput() {
+    typedColors.length = 0;
+}
+
+function resetGameColors() {
+    colors.length = 0;
+}
+
+function resetGameState() {
+    resetPlayerInput();
+    resetGameColors();
+}
+
+
+function initializeNextLevel() {
+    setTimeout(nextLevel, 500);
+}
+
+
+function displayGameOverMessage() {
+    document.querySelector("h1").textContent =
+        "Game Over, Press Any Key to Restart";
+}
+
+function gameOverState(state){
+    gameOver = state
+}
+
+
+function addButtonsSound(){
+    const buttons = document.querySelectorAll(".btn");
+    for (let button of buttons){
+        button.addEventListener("click", function(){
+            makeSound(button.getAttribute("id"));
+        })
+    }
+}
+
+function playGameOverSound(){
+    let audio = new Audio("src/assets/sounds/wrong.mp3");
+    audio.play();
         
-    })
-
-
 }
