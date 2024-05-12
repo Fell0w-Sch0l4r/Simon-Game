@@ -2,10 +2,11 @@
     "name": "simon-game",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "./src/js/app.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "tailwindcss": "npx tailwindcss -i ./src/css/tailwind.css -o ./dist/output.css --watch"
+        "tailwindcss": "npx tailwindcss -i ./src/css/tailwind.css -o ./dist/output.css --watch",
+        "build": "npx tailwindcss -i ./src/css/tailwind.css -o ./dist/output.css"
     },
     "keywords": [],
     "author": "",
