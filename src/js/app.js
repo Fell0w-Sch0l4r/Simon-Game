@@ -4,6 +4,7 @@ let level = 1;
 let gameOver = false;
 
 addButtonsSound()
+aClick()
 
 document.addEventListener("keydown", function (event) {
     console.log(event.key);
@@ -226,4 +227,12 @@ function playGameOverSound(){
 
 function addTypedColor(color) {
     typedColors.push(color);
+}
+
+function aClick(){
+    const a = document.querySelector("#a");
+    a.addEventListener("click", ()=>{
+        startLevel();
+        game();
+    })
 }
